@@ -1,7 +1,7 @@
 package TPMODUL3;
 
 public class Restaurant implements Runnable {
-    private Boolean waitingForPickup = false;
+    private boolean waitingForPickup = false;
     private static final Object lock = new Object ();
     private static int foodNumber = 1;
 
@@ -17,7 +17,7 @@ public class Restaurant implements Runnable {
         }
     }
 
-    public void setWaitingForPickup (Boolean waitingForPickup) {
+    public void setWaitingForPickup (boolean waitingForPickup) {
         this.waitingForPickup = waitingForPickup;
     }
 
@@ -27,7 +27,7 @@ public class Restaurant implements Runnable {
 
     public void makeFood () {
         synchronized (Restaurant.lock) {
-            if (waitingForPickup) {
+            if (this.waitingForPickup) {
                 try {
                     System.out.println ("Restaurant: Waiting for the Waiter to deliver the food");
                     Restaurant.lock.wait ();

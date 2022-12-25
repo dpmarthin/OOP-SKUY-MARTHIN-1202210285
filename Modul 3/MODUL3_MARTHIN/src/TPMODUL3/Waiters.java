@@ -13,7 +13,7 @@ public class Waiters implements Runnable {
     @Override
     public void run () {
         while (true) {
-            makeFood ();
+            getFood ();
             try {
                 Thread.sleep (15000);
             } catch (InterruptedException e) {
@@ -24,18 +24,18 @@ public class Waiters implements Runnable {
 
     public void orderInfo () {
         System.out.println ("==========================================================");
-        System.out.println ("Customer ID: " + customerID);
-        System.out.println ("Number of Food: " + orderQty);
-        System.out.println ("Total Price: " + (orderQty * foodPrice));
+        System.out.println ("Customer ID: " + this.customerID);
+        System.out.println ("Number of Food: " + this.orderQty);
+        System.out.println ("Total Price: " + this.orderQty * foodPrice);
         System.out.println ("==========================================================");
     }
 
-    public void makeFood () {
+    public void getFood () {
         synchronized (Restaurant.getLock ()) {
             System.out.println ("Waiter: Food is ready to deliver");
             Restaurant restaurant = new Restaurant ();
             restaurant.setWaitingForPickup (false);
-            if (Restaurant.getFoodNumber () == orderQty + 1) {
+            if (Restaurant.getFoodNumber () == this.orderQty + 1) {
                 orderInfo ();
                 System.exit (0);
             }
